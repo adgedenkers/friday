@@ -137,3 +137,6 @@ cython_debug/
 
 # setup scripts
 *setup*.py
+
+# secrets
+secrets
