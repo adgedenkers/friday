@@ -46,11 +46,11 @@ def calculate_pay_period(date):
 dates = pd.date_range(start="1/1/2023", end="12/31/2050")
 
 # Initialize data dictionary
-data_dict = {col: [] for col in ['date', 'day', 'suffix', 'dow_name', 'dow_num', 'doy', 'weekend', 'woy', 'fow', 'low', 'wom', 'month', 'moy_name', 'fom', 'lom', 'gov_quarter', 'year', 'cy', 'fy']}
+data_dict = {col: [] for col in ['date', 'day', 'suffix', 'dow_name', 'dow_num', 'doy', 'weekend', 'woy', 'fow', 'low', 'wom', 'month', 'moy_name', 'fom', 'lom', 'gov_quarter', 'year', 'cy', 'fy', 'date','day','suffix','dow_name','dow_num','doy','weekend','woy','fow','low','wom','month','moy_name','fom','lom','gov_quarter','year','cy','fy','leap_year','53_weeks','disp_date','disp_mm_yyyy','disp_mm_dd_yyyy','disp_date_suffix','ppid','pp','ppy','ppn','ppw','ppd','pp_start','pp_end','pay_day']}
 
 # Iterate over date range and populate data
 for date in dates:
-    data_dict['date'].append(date)
+    data_dict['date'].append(date.date())
     data_dict['day'].append(date.day)
     data_dict['suffix'].append('th' if 4 <= date.day <= 20 or 24 <= date.day <= 30 else ['st', 'nd', 'rd'][(date.day % 10) - 1])
     data_dict['dow_name'].append(date.strftime('%A'))
@@ -91,6 +91,6 @@ for date in dates:
 
 # Create DataFrame
 df = pd.DataFrame(data_dict)
-conn = sqlite3.connect('date_dim.sqlite')
-df.to_sql(conn, 'dim_date', if_exists='replace', index=False)
+conn = sqlite3.connect('date_dim.db')
+df.to_sql('dates', conn, if_exists='replace', index=False)
 conn.close()
