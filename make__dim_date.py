@@ -91,6 +91,6 @@ for date in dates:
 
 # Create DataFrame
 df = pd.DataFrame(data_dict)
-conn = sqlite3.connect('project.db')
+conn = sqlite3.connect('date_dim.sqlite')
 df.to_sql(conn, 'dim_date', if_exists='replace', index=False)
 conn.close()
